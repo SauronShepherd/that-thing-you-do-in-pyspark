@@ -17,7 +17,7 @@ def run(df: DataFrame, filtered_coa_df: DataFrame) -> DataFrame:
     # Define the join condition: start date must be less than end date
     on_condition = expr("start.date < end.date")
 
-    # Alias the data_df for the start and end DataFrames
+    # Alias the df for the start and end DataFrames
     start_df = df.alias("start")
     end_df = df.alias("end")
 
