@@ -16,19 +16,19 @@ def main():
 
     # Generating Data
     print_section("Generating Data")
-    data_df = generating_data.run(spark)
+    df = generating_data.run(spark)
 
     # Filtering Data
     print_section("Filtering Data")
-    filtered_df, filtered_rep_df, filtered_coa_df = filtering_data.run(data_df)
+    filtered_df, filtered_rep_df, filtered_coa_df = filtering_data.run(df)
 
     # Grouping Data
     print_section("Grouping Data")
-    grouping_data.run(data_df, filtered_df, filtered_rep_df, filtered_coa_df)
+    grouping_data.run(df, filtered_df, filtered_rep_df, filtered_coa_df)
 
     # Joining Data
     print_section("Joining Data")
-    multi_join_df = joining_data.run(data_df, filtered_coa_df)
+    multi_join_df = joining_data.run(df, filtered_coa_df)
 
     # Writing & Reading using files
     print_section("Writing & Reading using files")

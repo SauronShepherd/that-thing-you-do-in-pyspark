@@ -3,14 +3,14 @@ from pyspark.sql.functions import expr
 from utils import print_num_parts
 
 
-def run(data_df: DataFrame, filtered_coa_df: DataFrame) -> DataFrame:
+def run(df: DataFrame, filtered_coa_df: DataFrame) -> DataFrame:
     """
     Performs various join operations on the provided DataFrames and returns a final DataFrame.
 
     - Joins two copies of the data on a date condition.
     - Performs multiple broadcast joins with coalesced DataFrame.
 
-    :param data_df: The original DataFrame to perform the join operations on.
+    :param df: The original DataFrame to perform the join operations on.
     :param filtered_coa_df: The coalesced DataFrame used for concatenating multiple joins.
     :return: A DataFrame resulting from the concatenation of the join operations.
     """
@@ -18,8 +18,8 @@ def run(data_df: DataFrame, filtered_coa_df: DataFrame) -> DataFrame:
     on_condition = expr("start.date < end.date")
 
     # Alias the data_df for the start and end DataFrames
-    start_df = data_df.alias("start")
-    end_df = data_df.alias("end")
+    start_df = df.alias("start")
+    end_df = df.alias("end")
 
     # Print the number of partitions after performing an inner join without broadcasting
     print_num_parts("Inner join", start_df.join(end_df, on_condition))
@@ -31,7 +31,7 @@ def run(data_df: DataFrame, filtered_coa_df: DataFrame) -> DataFrame:
     first_df = filtered_coa_df.coalesce(1).withColumnRenamed("month", "month1").alias("df1")
 
     # Coalesce the original DataFrame into one partition to prepare it for joining
-    one_partition_df = data_df.coalesce(1)
+    one_partition_df = df.coalesce(1)
 
     # Perform a series of joins using a loop to concatenate joins on the 'month' column
     multi_join_df = first_df
