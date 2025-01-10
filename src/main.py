@@ -27,16 +27,16 @@ def main():
     grouping_data.run(df, filtered_df, filtered_rep_df, filtered_coa_df)
 
     # Joining Data
-    print_section("Joining Data")
-    multi_join_df = joining_data.run(df, filtered_coa_df)
+    #print_section("Joining Data")
+    #multi_join_df = joining_data.run(df, filtered_coa_df)
 
     # Writing & Reading using files
-    print_section("Writing & Reading using files")
-    read_files_df = writing_reading_files.run(multi_join_df)
+    #print_section("Writing & Reading using files")
+    #read_files_df = writing_reading_files.run(multi_join_df)
 
     # Writing & Reading using JDBC
-    print_section("Writing & Reading using JDBC")
-    writing_reading_jdbc.run(read_files_df)
+    #print_section("Writing & Reading using JDBC")
+    #writing_reading_jdbc.run(read_files_df)
 
     # Stop Spark session
     spark.stop()
