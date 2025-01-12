@@ -72,13 +72,15 @@ def print_time(text: str, func, *args, **kwargs):
     :param func: The callable to execute.
     :param args: Positional arguments for the callable.
     :param kwargs: Keyword arguments for the callable.
+    :return: The result of the execution.
     """
     import time
     start_time = time.time()
-    func(*args, **kwargs)
+    result = func(*args, **kwargs)
     end_time = time.time()
     duration_seconds = end_time - start_time
     print(f"{text} => Executed in {duration_seconds:.2f} s")
+    return result
 
 
 def jdbc_options(dbtable: str, options: dict = None) -> dict:

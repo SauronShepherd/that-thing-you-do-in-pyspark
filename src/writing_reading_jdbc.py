@@ -13,6 +13,7 @@ def run(df: DataFrame):
 
     :param df: The input DataFrame to be used in JDBC operations.
     """
+    # Get the current Spark session
     spark = df.sparkSession
 
     # JDBC write with default batch size of 1000
@@ -41,7 +42,7 @@ def run(df: DataFrame):
         "partitionColumn": "date",
         "lowerBound": str(start_date),
         "upperBound": str(end_date),
-        "numPartitions": "16"
+        "numPartitions": spark.sparkContext.defaultParallelism
     }
 
     # Read from JDBC using date-based partitioning
@@ -58,7 +59,7 @@ def run(df: DataFrame):
         "partitionColumn": "day_of_month",
         "lowerBound": "1",
         "upperBound": "31",
-        "numPartitions": "16"
+        "numPartitions": spark.sparkContext.defaultParallelism
     }
 
     # Custom query for reading specific columns and casting types
