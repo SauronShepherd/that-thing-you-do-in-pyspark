@@ -43,7 +43,7 @@ def run(df: DataFrame) -> DataFrame:
     spark.conf.set("spark.sql.files.maxPartitionBytes", str(18 * 1024))
 
     # Load the data with the updated configuration and print the number of partitions
-    print_num_parts(
+    read_files_df = print_num_parts(
         "Read data from files with 18 KB maxPartitionBytes",
         spark.read.load(f"data/df{num_joins}")
     )
